@@ -31,10 +31,21 @@ const ShoeCard = ({
       ? 'new-release'
       : 'default'
 
+  const displayValue = {
+    "new-release" : {
+      label:'Just Released!'
+    },
+    "on-sale" : {
+      label: 'Sale'
+    }
+
+  }
+  
   return (
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
         <ImageWrapper>
+         <VariantLabel variant={variant}>{displayValue[variant]?.label}</VariantLabel>
           <Image alt="" src={imageSrc} />
         </ImageWrapper>
         <Spacer size={12} />
@@ -50,18 +61,38 @@ const ShoeCard = ({
   );
 };
 
+
+const VariantLabel = styled.label`
+  position:absolute;
+  top:12px;
+  right:-4px;
+  border-radius:2px;
+  color: ${COLORS.white};
+  background-color: ${p => p.variant === 'on-sale' ? COLORS.primary : COLORS.secondary};
+  font-weight: ${WEIGHTS.medium};
+  font-size: ${14/16}rem;
+  padding: 10px 9px 7px 11px;
+  display: ${(p) => p.variant === 'default' ? 'none' : ''};
+`;
+
 const Link = styled.a`
   text-decoration: none;
   color: inherit;
 `;
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+ border-radius: 16px 16px 4px 4px;
+
+`;
 
 const ImageWrapper = styled.div`
   position: relative;
+  
 `;
 
-const Image = styled.img``;
+const Image = styled.img`
+  max-width:300px;
+`;
 
 const Row = styled.div`
   font-size: 1rem;
